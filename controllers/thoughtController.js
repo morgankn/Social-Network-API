@@ -49,12 +49,6 @@ module.exports = {
         return res.status(404).json({ message: 'No such thought exists' });
       }
 
-    //   const  = await Course.findOneAndUpdate(
-    //     { students: req.params.studentId },
-    //     { $pull: { students: req.params.studentId } },
-    //     { new: true }
-    //   );
-
       if (!thought) {
         return res.status(404).json({
           message: 'Thought deleted, but no users found',
@@ -68,7 +62,6 @@ module.exports = {
     }
   },
 
-  // Add an assignment to a student
   async addThought(req, res) {
 
     try {
@@ -88,25 +81,5 @@ module.exports = {
     } catch (err) {
       res.status(500).json(err);
     }
-  },
-  // Remove assignment from a student
-  async removeAssignment(req, res) {
-    try {
-      const student = await Student.findOneAndUpdate(
-        { _id: req.params.studentId },
-        { $pull: { assignment: { assignmentId: req.params.assignmentId } } },
-        { runValidators: true, new: true }
-      );
-
-      if (!student) {
-        return res
-          .status(404)
-          .json({ message: 'No student found with that ID :(' });
-      }
-
-      res.json(student);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  },
-};
+  }
+},
